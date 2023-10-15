@@ -12,7 +12,6 @@ function App() {
       setNoteId(noteId + 1)
       setCurrentNote('')
     } else {
-      setNoteId(1)
       console.log('Add note')
       alert('Add note')
     }
