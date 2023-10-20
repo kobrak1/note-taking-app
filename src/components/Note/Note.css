@@ -5,7 +5,7 @@
   .note div {
     display: flex;
     justify-content: space-between;
-    margin-bottom: .5rem;
+    margin-bottom: 1rem;
   }
   .note div span {
     max-width: 250px;
@@ -14,11 +14,22 @@
     border-radius: .5rem;
     color: rgb(110, 109, 109);
     background-color: rgb(229, 234, 239);
+    box-shadow: 5px 5px 10px #a1a1a1;
+    backdrop-filter: blur(15px);
+  }
+
+  .note div span:hover {
+    transition: .5s ease;
+    box-shadow: inset 2px 2px 5px #888;
   }
   .note div button {
-    width: 50px;
-    height: 20px;
+    width: 60px;
+    height: 25px;
     color: rgb(110, 109, 109);
     border-color: lightgrey;
     border-radius: 4px;
+    box-shadow: 5px 5px 10px #a1a1a1;
+  }
+  .note div button:hover {
+    box-shadow: inset 2px 2px 5px #888; 
   }
