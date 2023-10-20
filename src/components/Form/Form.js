@@ -1,5 +1,6 @@
 import React from "react";
 import './Form.css'
+import Button from "../Button/Button";
 
 const Form = ({currentNote, setCurrentNote, addNote}) => {
   return (
@@ -9,7 +10,7 @@ const Form = ({currentNote, setCurrentNote, addNote}) => {
         onChange={(e) => setCurrentNote(e.target.value)}
         placeholder="Add note..."
       ></textarea>
-      <input type="submit" value={"Add"} onClick={() => addNote(currentNote)} />
+      <Button className='formButton' text={'Add'} onClick={() => addNote(currentNote)} />
     </form>
   );
 };
