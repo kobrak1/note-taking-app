@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Form from "./components/Form";
-import Note from "./components/Note";
+import Form from "./components/Form/Form";
+import Note from "./components/Note/Note";
 import './App.css'
 
 function App() {

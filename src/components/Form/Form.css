@@ -1,0 +1,16 @@
+form {
+    padding-left: 20px;
+    margin-bottom: 30px;
+  }
+  
+  form textarea {
+    min-width: 200px;
+    min-height: 50px;
+    margin-right: 50px;
+  }
+  
+  /* input styling */
+  input[type="text"] {
+    width: 250px; /* Belirttiğiniz genişlik */
+    overflow: auto; /* Taşan metin için kaydırma çubuğunu etkinleştirin */
+  }

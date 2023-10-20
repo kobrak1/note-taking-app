@@ -1,42 +1,16 @@
+:root {
+  box-sizing: border-box;
+  font-family: sans-serif;
+  --bg-color: rgb(143, 210, 229, .5);
+}
+
 .App {
   display: flex;
   flex-direction: column;
   max-width: 400px;
+  min-height: 500px;
   margin: 0 auto;
-}
-
-form {
-  padding-left: 20px;
-  margin-bottom: 30px;
-}
-
-form textarea {
-  min-width: 200px;
-  min-height: 50px;
-  margin-right: 50px;
-}
-
-.note-list {
-  max-width: 400px;
-}
-
-.note div {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: .5rem;
-}
-
-.note div span {
-  max-width: 250px; /* Belirttiğiniz maksimum genişlik */
-  word-wrap: break-word; /* Uzun kelimeleri veya bağlamları otomatik olarak kır */
-}
-.note div button {
-  width: 50px;
-  height: 20px;
-}
-
-/* input styling */
-input[type="text"] {
-  width: 250px; /* Belirttiğiniz genişlik */
-  overflow: auto; /* Taşan metin için kaydırma çubuğunu etkinleştirin */
+  padding: 1rem 2rem 1rem 1rem;
+  border-radius: 1rem;
+  background-color: var(--bg-color)
 }
