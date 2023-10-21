@@ -19,8 +19,8 @@
   }
 
   .note div span:hover {
-    transition: .5s ease;
-    box-shadow: inset 2px 2px 5px #888;
+    transition: .2s ease;
+    background-color: rgb(221, 223, 225);
   }
   .note div button {
     width: 60px;
