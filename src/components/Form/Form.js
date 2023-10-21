@@ -1,5 +1,5 @@
 import React from "react";
-import './Form.css'
+import './Form.css';
 import Button from "../Button/Button";
 
 const Form = ({currentNote, setCurrentNote, addNote}) => {
