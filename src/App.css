@@ -4,6 +4,10 @@
   --bg-color: rgb(143, 210, 229, .5);
 }
 
+body {
+  background-color: black;
+}
+
 .App {
   display: flex;
   flex-direction: column;
