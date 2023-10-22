@@ -4,8 +4,12 @@
   --bg-color: rgb(194, 217, 255);
 }
 
-body {
+body.light {
   background-color: rgb(185, 180, 199);
+}
+
+body.dark {
+  background-color: black;
 }
 
 .App {
