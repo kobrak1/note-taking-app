@@ -4,7 +4,7 @@ import Button from "../Button/Button";
 
 const Form = ({currentNote, setCurrentNote, addNote}) => {
   return (
-    <form action="#">
+    <form action="#" id="form">
       <textarea
         value={currentNote}
         onChange={(e) => setCurrentNote(e.target.value)}
