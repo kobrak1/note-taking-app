@@ -1,15 +1,18 @@
 :root {
   box-sizing: border-box;
   font-family: sans-serif;
-  --bg-color: rgb(194, 217, 255);
+  --bg-color: rgb(229, 239, 247);
+  --box-shadow-color: #a1a1a1;
 }
 
 body.light {
-  background-color: rgb(185, 180, 199);
+  background-color: rgb(255, 255, 255);
 }
 
-body.dark {
-  background-color: black;
+body.dark { 
+  background-color: rgb(62, 61, 61);
+  --bg-color: rgb(185, 180, 199);
+  --box-shadow-color: 'none';
 }
 
 .App {
@@ -20,6 +23,6 @@ body.dark {
   margin: 0 auto;
   padding: 1rem 2rem 1rem 1rem;
   border-radius: 1rem;
-  box-shadow: 5px 5px 10px #a1a1a1;
+  box-shadow: 5px 5px 10px var(--box-shadow-color);
   background-color: var(--bg-color)
 }

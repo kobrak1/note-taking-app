@@ -1,12 +1,13 @@
 form {
-    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
     margin-bottom: 30px;
   }
   
   form textarea {
-    min-width: 200px;
-    min-height: 50px;
-    margin-right: 50px;
+    min-width: 350px;
+    min-height: 80px;
+    margin-bottom: .5rem;
   }
   
   /* input styling */
