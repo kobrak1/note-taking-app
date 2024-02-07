@@ -1,0 +1,10 @@
+@import './NotesForm/NotesForm.scss';
+
+.contents {
+    background-color: aquamarine;
+    .notes {
+        &__list {
+            margin: 0;
+        }
+    }
+}

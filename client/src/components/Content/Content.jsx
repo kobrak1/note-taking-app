@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import NotesForm from "./NotesForm/NotesForm";
-import "./Content.scss";
 import Notes from "./Notes/Notes";
+import "./Content.scss";
 
 const Content = (props) => {
   const [notes, setNotes] = useState(props.notes);
@@ -15,13 +15,13 @@ const Content = (props) => {
 
     // create a note object that holds the id, content and important status info
     const noteObject = {
-      id: notes.length,
+      id: notes.length + 1,
       content: newNote,
       important: Math.random() < 0.5,
     };
 
     // set new note to the notes state
-    noteObject.content && setNotes([...notes, noteObject])
+    noteObject.content && setNotes([...notes, noteObject]);
 
     // clear the input field
     setNewNote("");
@@ -31,19 +31,21 @@ const Content = (props) => {
   };
 
   return (
-    <section className="notes">
-      <ul className="notes__list">
-        {notes.map((item, index) => (
-          <Notes key={index} item={item} />
-        ))}
-      </ul>
-      <div className="notes__form">
-        <NotesForm
-          newNote={newNote}
-          handleSubmit={handleSubmit}
-          setNewNote={setNewNote}
-          inputRef={inputRef}
-        />
+    <section className="contents">
+      <div className="notes">
+        <ul className="notes__list">
+          {notes.map((item, index) => (
+            <Notes key={index} item={item} />
+          ))}
+        </ul>
+        <div className="notes__form">
+          <NotesForm
+            newNote={newNote}
+            handleSubmit={handleSubmit}
+            setNewNote={setNewNote}
+            inputRef={inputRef}
+          />
+        </div>
       </div>
     </section>
   );

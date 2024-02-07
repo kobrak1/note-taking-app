@@ -1,3 +1,19 @@
+.header {
+  background-color: gray;
+}
+.header h2 {
+  margin: 0;
+}
 
+.contents {
+  background-color: aquamarine;
+}
+.contents .notes__list {
+  margin: 0;
+}
+
+.footer {
+  background-color: greenyellow;
+}
 
 /*# sourceMappingURL=styles.css.map */
