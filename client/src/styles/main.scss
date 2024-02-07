@@ -1,0 +1,16 @@
+// abstracts
+@import './abstracts/variables';
+@import './abstracts/mixins';
+@import './abstracts/functions';
+
+// base
+@import './base/base';
+@import './base/typography';
+@import './base/animations';
+
+//components
+@import '../components/Header/Header.scss';
+
+@import '../components/Content/Content.scss';
+
+@import '../components/Footer/Footer.scss';

@@ -1,5 +1,7 @@
 import React, { Fragment } from "react";
 import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
+import Content from "./components/Content/Content";
 
 function App() {
   const notes = [
@@ -21,11 +23,11 @@ function App() {
   ];
 
   return (
-    <Fragment>
-      {/*This place is the main headquarter*/}
-      <h2>Note Taking App</h2>
-      <Header notes={notes} />
-    </Fragment>
+    <>
+      <Header />
+      <Content notes={notes} />
+      <Footer />
+    </>
   );
 }
 
