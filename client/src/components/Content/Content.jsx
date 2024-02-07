@@ -3,8 +3,8 @@ import NotesForm from "./NotesForm/NotesForm";
 import Notes from "./Notes/Notes";
 import "./Content.scss";
 
-const Content = (props) => {
-  const [notes, setNotes] = useState(props.notes);
+const Content = ({data}) => {
+  const [notes, setNotes] = useState(data);
   const [newNote, setNewNote] = useState("");
   const [showAll, setShowAll] = useState(true);
   const inputRef = useRef(null);
