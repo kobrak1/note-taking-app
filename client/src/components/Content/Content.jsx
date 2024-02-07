@@ -6,7 +6,13 @@ import "./Content.scss";
 const Content = (props) => {
   const [notes, setNotes] = useState(props.notes);
   const [newNote, setNewNote] = useState("");
+  const [showAll, setShowAll] = useState(true);
   const inputRef = useRef(null);
+
+  // the variable that keeps the notes value in condition of showAll state
+  const notesToShow = showAll
+    ? notes
+    : notes.filter((item) => item.important === true);
 
   // the function that handle submit
   const handleSubmit = (e) => {
@@ -30,11 +36,16 @@ const Content = (props) => {
     inputRef.current.focus();
   };
 
+  // handle important notes
+  const handleImportant = () => {
+    setShowAll(!showAll);
+  };
+
   return (
     <section className="contents">
       <div className="notes">
         <ul className="notes__list">
-          {notes.map((item, index) => (
+          {notesToShow.map((item, index) => (
             <Notes key={index} item={item} />
           ))}
         </ul>
@@ -47,6 +58,9 @@ const Content = (props) => {
           />
         </div>
       </div>
+      <button onClick={handleImportant}>
+        Show {showAll ? "Important" : "All"}
+      </button>
     </section>
   );
 };
