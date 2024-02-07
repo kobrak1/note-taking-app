@@ -12,7 +12,7 @@ const Content = (props) => {
   // the variable that keeps the notes value in condition of showAll state
   const notesToShow = showAll
     ? notes
-    : notes.filter((item) => item.important === true);
+    : notes.filter((item) => item.important);
 
   // the function that handle submit
   const handleSubmit = (e) => {
