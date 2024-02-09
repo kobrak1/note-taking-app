@@ -55,13 +55,23 @@ const Content = ({ data }) => {
   const toggleImportance = (id) => {
     const url = `http://localhost:3001/notes/${id}`;
     const note = notes.find((n) => n.id === id);
-    const changedNote = { ...notes, important: !note.important };
+    const changedNote = { ...note, important: !note.important };
 
-    fetch(url, changedNote)
-      .then((response) => response.json())
-      .then((data) => setNotes(notes.map((n) => (n.id !== id ? n : data))));
-
-    console.log(`importance of ${id} needs to be toggled`);
+    fetch(url, {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify(changedNote)
+    })
+      .then((response) => {
+        if(!response.ok) {
+          throw new Error('Error updating note')
+        }
+        return response.json()
+      })
+      .then((data) => setNotes(notes.map((n) => (n.id !== id ? n : data))))
+      .catch((error) => console.error('Error:', error))
   };
 
   return (
@@ -73,6 +83,7 @@ const Content = ({ data }) => {
               key={item.id}
               item={item}
               toggleImportance={() => toggleImportance(item.id)}
+              dataLoaded={notes.length > 0}  // to check if the data fetched. If not the 'important' will be disabled
             />
           ))}
         </ul>
