@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import NotesForm from "./NotesForm/NotesForm";
 import Notes from "./Notes/Notes";
+import update from "../../services/services";
 import "./Content.scss";
 
 const Content = ({ data }) => {
@@ -53,25 +54,12 @@ const Content = ({ data }) => {
 
   // toggle importance of each note
   const toggleImportance = (id) => {
-    const url = `http://localhost:3001/notes/${id}`;
     const note = notes.find((n) => n.id === id);
     const changedNote = { ...note, important: !note.important };
 
-    fetch(url, {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json'
-      },
-      body: JSON.stringify(changedNote)
-    })
-      .then((response) => {
-        if(!response.ok) {
-          throw new Error('Error updating note')
-        }
-        return response.json()
-      })
+    update(id, changedNote)
       .then((data) => setNotes(notes.map((n) => (n.id !== id ? n : data))))
-      .catch((error) => console.error('Error:', error))
+      .catch((error) => console.error("Error:", error));
   };
 
   return (
@@ -83,7 +71,7 @@ const Content = ({ data }) => {
               key={item.id}
               item={item}
               toggleImportance={() => toggleImportance(item.id)}
-              dataLoaded={notes.length > 0}  // to check if the data fetched. If not the 'important' will be disabled
+              dataLoaded={notes.length > 0} // to check if the data fetched. If not the 'important' will be disabled
             />
           ))}
         </ul>
