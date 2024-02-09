@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Content from "./components/Content/Content";
@@ -6,9 +6,6 @@ import Content from "./components/Content/Content";
 function App() {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  console.log(isLoading);
-  console.log("burak karhan");
 
   useEffect(() => {
     fetch("http://localhost:3001/notes")
@@ -27,9 +24,6 @@ function App() {
         setIsLoading(false);
       });
   }, []);
-
-  console.log(isLoading);
-  console.log(data);
 
   return (
     <>
