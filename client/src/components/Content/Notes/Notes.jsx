@@ -1,7 +1,7 @@
 const Notes = ({item, toggleImportance}) => {
   const label = item.important
     ? 'Important'
-    : 'Shit'
+    : 'Not Important'
 
   return (
     <li>
