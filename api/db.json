@@ -22,7 +22,7 @@
     },
     {
       "content": "burak",
-      "important": false,
+      "important": true,
       "id": 5
     },
     {
@@ -48,7 +48,7 @@
     {
       "id": 10,
       "content": "asdasd",
-      "important": true
+      "important": false
     },
     {
       "id": 11,
@@ -58,12 +58,12 @@
     {
       "id": 12,
       "content": "asdasd",
-      "important": false
+      "important": true
     },
     {
       "id": 13,
       "content": "asdasd",
-      "important": true
+      "important": false
     },
     {
       "content": "555",
@@ -77,12 +77,12 @@
     },
     {
       "content": "kjbvkvk",
-      "important": false,
+      "important": true,
       "id": 16
     },
     {
       "content": "burak karhan is alive",
-      "important": true,
+      "important": false,
       "id": 17
     }
   ]
