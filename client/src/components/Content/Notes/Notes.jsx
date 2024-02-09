@@ -1,12 +1,12 @@
-const Notes = ({item, toggleImportance}) => {
-  const label = item.important
-    ? 'Important'
-    : 'Not Important'
+const Notes = ({ item, toggleImportance, dataLoaded }) => {
+  const label = item.important ? "Important" : "Not Important";
 
   return (
     <li>
       {item.content}
-      <button onClick={toggleImportance}> {label} </button>
+      <button disabled={!dataLoaded} onClick={toggleImportance}>
+        {label}
+      </button>
     </li>
   );
 };
