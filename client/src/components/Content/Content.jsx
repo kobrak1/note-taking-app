@@ -3,33 +3,43 @@ import NotesForm from "./NotesForm/NotesForm";
 import Notes from "./Notes/Notes";
 import "./Content.scss";
 
-const Content = ({data}) => {
+const Content = ({ data }) => {
   const [notes, setNotes] = useState(data);
   const [newNote, setNewNote] = useState("");
   const [showAll, setShowAll] = useState(true);
   const inputRef = useRef(null);
 
   // the variable that keeps the notes value in condition of showAll state
-  const notesToShow = showAll
-    ? notes
-    : notes.filter((item) => item.important);
+  const notesToShow = showAll ? notes : notes.filter((item) => item.important);
 
   // the function that handle submit
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("button clicked", e.target);
 
-    // create a note object that holds the id, content and important status info
     const noteObject = {
-      id: notes.length + 1,
       content: newNote,
       important: Math.random() < 0.5,
     };
 
-    // set new note to the notes state
-    noteObject.content && setNotes([...notes, noteObject]);
+    // POST request with fetch api
+    fetch("http://localhost:3001/notes", {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(noteObject.content && noteObject),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error while posting data!");
+        }
+        return response.json();
+      })
+      .then(noteObject.content && setNotes([...notes, noteObject]))
+      .then((data) => console.log("Response data:", data))
+      .catch((error) => {
+        console.error("Error:", error);
+      });
 
-    // clear the input field
     setNewNote("");
 
     //focus on input field right after save button clicked
@@ -41,12 +51,29 @@ const Content = ({data}) => {
     setShowAll(!showAll);
   };
 
+  // toggle importance of each note
+  const toggleImportance = (id) => {
+    const url = `http://localhost:3001/notes/${id}`;
+    const note = notes.find((n) => n.id === id);
+    const changedNote = { ...notes, important: !note.important };
+
+    fetch(url, changedNote)
+      .then((response) => response.json())
+      .then((data) => setNotes(notes.map((n) => (n.id !== id ? n : data))));
+
+    console.log(`importance of ${id} needs to be toggled`);
+  };
+
   return (
     <section className="contents">
       <div className="notes">
         <ul className="notes__list">
-          {notesToShow.map((item, index) => (
-            <Notes key={index} item={item} />
+          {notesToShow.map((item) => (
+            <Notes
+              key={item.id}
+              item={item}
+              toggleImportance={() => toggleImportance(item.id)}
+            />
           ))}
         </ul>
         <div className="notes__form">

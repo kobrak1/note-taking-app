@@ -1,7 +1,12 @@
-const Notes = ({item}) => {
+const Notes = ({item, toggleImportance}) => {
+  const label = item.important
+    ? 'Important'
+    : 'Shit'
+
   return (
     <li>
-      {item.content} id:{item.id} important:{item.important ? "true" : "false"}
+      {item.content}
+      <button onClick={toggleImportance}> {label} </button>
     </li>
   );
 };

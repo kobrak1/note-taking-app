@@ -8,7 +8,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   console.log(isLoading);
-  console.log('burak karhan');
+  console.log("burak karhan");
 
   useEffect(() => {
     fetch("http://localhost:3001/notes")
@@ -24,10 +24,10 @@ function App() {
       })
       .catch((error) => {
         console.error("Error while fetching data:", error);
-        setIsLoading(false)
+        setIsLoading(false);
       });
   }, []);
-  
+
   console.log(isLoading);
   console.log(data);
 
