@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import NotesForm from "./NotesForm/NotesForm";
 import Notes from "./Notes/Notes";
-import update from "../../services/services";
+import noteService from "../../services/services";
 import "./Content.scss";
 
 const Content = ({ data }) => {
@@ -57,9 +57,13 @@ const Content = ({ data }) => {
     const note = notes.find((n) => n.id === id);
     const changedNote = { ...note, important: !note.important };
 
-    update(id, changedNote)
+    noteService
+      .update(id, changedNote)
       .then((data) => setNotes(notes.map((n) => (n.id !== id ? n : data))))
-      .catch((error) => console.error("Error:", error));
+      .catch((error) => {
+        alert(`The note ${note.content} was already deleted from server`);
+        setNotes(notes.filter((e) => e.id !== id));
+      });
   };
 
   return (
@@ -80,7 +84,7 @@ const Content = ({ data }) => {
             newNote={newNote}
             handleSubmit={handleSubmit}
             setNewNote={setNewNote}
-            inputRef={inputRef}
+            inputRef={inputRef} // to focus on the input field when the component rendered
           />
         </div>
       </div>
