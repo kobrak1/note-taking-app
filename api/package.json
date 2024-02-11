@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
     "start:server": "json-server --port 3001 --watch db.json",
     "api:dev": "nodemon --watch db.json --exec npm run start:server"
   },
@@ -12,5 +13,8 @@
   "license": "MIT",
   "devDependencies": {
     "nodemon": "^3.0.3"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
   }
 }
