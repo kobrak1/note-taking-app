@@ -2,14 +2,15 @@ import React, { useEffect, useState } from "react";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Content from "./components/Content/Content";
-import getAll from "./services/services.jsx";
+import noteService from "./services/services.jsx";
 
 function App() {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getAll()
+    noteService
+      .getAll()
       .then((data) => {
         setData(data);
         setIsLoading(false);
@@ -20,10 +21,14 @@ function App() {
       });
   }, []);
 
+  if(!data) {
+    return null
+  }
+
   return (
     <>
       <Header />
-      {isLoading ? <p>lading...</p> : <Content data={data} />}
+      {isLoading ? <p>loading...</p> : <Content data={data} />}
       <Footer />
     </>
   );
