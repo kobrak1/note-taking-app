@@ -58,7 +58,7 @@
     {
       "id": 12,
       "content": "asdasd",
-      "important": true
+      "important": false
     },
     {
       "id": 13,
@@ -67,23 +67,38 @@
     },
     {
       "content": "555",
-      "important": true,
+      "important": false,
       "id": 14
     },
     {
       "content": "police",
-      "important": false,
+      "important": true,
       "id": 15
     },
     {
       "content": "kjbvkvk",
-      "important": false,
+      "important": true,
       "id": 16
     },
     {
       "content": "burak karhan is alive",
       "important": true,
       "id": 17
+    },
+    {
+      "content": "today is a beautiful day!",
+      "important": true,
+      "id": 18
+    },
+    {
+      "content": "asdas",
+      "important": false,
+      "id": 19
+    },
+    {
+      "content": "ahmet burak karhan",
+      "important": false,
+      "id": 20
     }
   ]
 }
