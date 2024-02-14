@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+app.use(express.json())
 
 let notes = [
   {
@@ -40,7 +41,7 @@ app.get("/api/notes", (request, response) => {
 app.get("/api/notes/:id", (request, response) => {
   const id = Number(request.params.id);
   console.log(id, typeof id);
-  const note = notes.find(note => note.id === id)
+  const note = notes.find((note) => note.id === id);
 
   if (note) {
     response.json(note);
@@ -49,13 +50,25 @@ app.get("/api/notes/:id", (request, response) => {
   }
 });
 
-app.delete('/api/notes/:id', (request, response) => {
-    const id = Number(request.params.id);
-    const note = notes.filter(note => note.id !== id)
-    console.log('note deleted');
+app.delete("/api/notes/:id", (request, response) => {
+  const id = Number(request.params.id);
+  const note = notes.filter((note) => note.id !== id);
+  lengthArr = note.length;
+  console.log("note deleted");
 
-    response.status(204).end()
-})
+  if (note.length === notes.length) {
+    response.send(`<h2>There is no item with id:${id} </h2>`);
+  } else {
+    response.json(note);
+  }
+  response.status(204).end();
+});
+
+app.post("/api/notes/", (request, response) => {
+  const note = request.body;
+  console.log(note);
+  response.json(note);
+});
 
 const PORT = 3005;
 app.listen(PORT);
