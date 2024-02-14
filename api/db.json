@@ -48,12 +48,12 @@
     {
       "id": 10,
       "content": "asdasd",
-      "important": true
+      "important": false
     },
     {
       "id": 11,
       "content": "asdasd",
-      "important": false
+      "important": true
     },
     {
       "id": 12,
