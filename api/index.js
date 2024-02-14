@@ -1,5 +1,7 @@
 const express = require("express");
 const app = express();
+
+// middleware to parse JSON bodies
 app.use(express.json())
 
 let notes = [
@@ -57,7 +59,7 @@ app.delete("/api/notes/:id", (request, response) => {
   console.log("note deleted");
 
   if (note.length === notes.length) {
-    response.send(`<h2>There is no item with id:${id} </h2>`);
+    response.send(`There is no item with id:${id}`);
   } else {
     response.json(note);
   }
@@ -66,8 +68,9 @@ app.delete("/api/notes/:id", (request, response) => {
 
 app.post("/api/notes/", (request, response) => {
   const note = request.body;
-  console.log(note);
+  console.log(typeof note);
   response.json(note);
+  console.log(typeof response.json());
 });
 
 const PORT = 3005;
