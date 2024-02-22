@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:3001/notes";
+const baseUrl = process.env.BASE_URL;
 
 const getAll = async () => {
   const request = await fetch(baseUrl);
