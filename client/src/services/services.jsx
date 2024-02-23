@@ -1,4 +1,5 @@
-const baseUrl = process.env.BASE_URL;
+// const baseUrl = process.env.BASE_URL;
+const baseUrl = 'https://note-taking-app-api-2h7s.onrender.com/api/notes';
 
 const getAll = async () => {
   const request = await fetch(baseUrl);
