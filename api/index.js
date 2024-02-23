@@ -6,7 +6,10 @@ const app = express();
 app.use(express.json());
 
 // middleware to assure same origin policy
-app.use(cors())
+app.use(cors());
+
+// middleware to use static files
+app.use(express.static("build"));
 
 let notes = [
   {
