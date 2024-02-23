@@ -6,6 +6,7 @@ const getAll = async () => {
   if (!request.ok) {
     throw new Error("Error while fetching data");
   }
+  console.log('data fetched successfully');
   return request.json();
 };
 
