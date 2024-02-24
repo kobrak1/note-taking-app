@@ -6,12 +6,12 @@
   "scripts": {
     "build:ui": "rm -rf build && cd ../client && npm run build && cp -r build ../api",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push",
-    "build": "npm i",
+    "build": "npm run build:ui && git add . && git commit -m uibuild && git push",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "dev": "nodemon index.js",
     "start:server": "json-server --port 3001 --watch db.json",
-    "api:dev": "nodemon --watch db.json --exec npm run start:server",
+    "api:dev": "nodemon --watch db.json --exec npm run start:server"
   },
   "author": "ahmet burak karhan",
   "license": "MIT",
