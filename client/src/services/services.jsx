@@ -1,5 +1,4 @@
-const baseUrl = 'https://note-taking-app-api-2h7s.onrender.com/api/notes';
-// const baseUrl = process.env.BASE_URL;
+const baseUrl = '/api/notes';
 
 const getAll = async () => {
   const request = await fetch(baseUrl);
@@ -9,6 +8,25 @@ const getAll = async () => {
   console.log('data fetched successfully');
   return request.json();
 };
+
+const post = (notes, noteObject,setNotes) => {
+  fetch(baseUrl, {
+    method: "POST",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify(noteObject.content && noteObject),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Error while posting data!");
+      }
+      return response.json();
+    })
+    .then(noteObject.content && setNotes([...notes, noteObject]))
+    .then((data) => console.log("Response data:", data))
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
 
 const update = async (id, newObject) => {
   const request = await fetch(`${baseUrl}/${id}`, {
@@ -25,4 +43,4 @@ const update = async (id, newObject) => {
   return request.json();
 };
 
-export default { getAll, update };
+export default { getAll, update, post };

@@ -24,22 +24,7 @@ const Content = ({ data }) => {
     };
 
     // POST request with fetch api
-    fetch("http://localhost:3001/notes", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify(noteObject.content && noteObject),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Error while posting data!");
-        }
-        return response.json();
-      })
-      .then(noteObject.content && setNotes([...notes, noteObject]))
-      .then((data) => console.log("Response data:", data))
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    noteService.post(notes, noteObject, setNotes)
 
     setNewNote("");
 
