@@ -8,7 +8,7 @@ app.use(express.json());
 // middleware to assure same origin policy
 app.use(cors());
 
-// middleware to use static files
+// middleware to use static files to parse json
 app.use(express.static("build"));
 
 let notes = [
