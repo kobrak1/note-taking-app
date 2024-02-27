@@ -1,5 +1,9 @@
+require('dotenv').config();
 const express = require("express");
 const cors = require("cors");
+const Note = require('./models/note')
+
+// assign express() to the variable called 'app'
 const app = express();
 
 // middleware to parse JSON bodies
@@ -45,20 +49,16 @@ app.get("/", (request, response) => {
 
 // GET ALL
 app.get("/api/notes", (request, response) => {
-  response.json(notes);
+  Note.find({}).then(notes => {
+    response.json(notes);
+  })
 });
 
 // GET SPECIFIED DATA
 app.get("/api/notes/:id", (request, response) => {
-  const id = Number(request.params.id);
-  console.log(id, typeof id);
-  const note = notes.find((note) => note.id === id);
-
-  if (note) {
-    response.json(note);
-  } else {
-    response.status(404).end();
-  }
+  Note.findById(request.params.id).then(note => {
+    response.json(note)
+  })
 });
 
 // DELETE METHOD
@@ -77,11 +77,6 @@ app.delete("/api/notes/:id", (request, response) => {
 });
 
 // POST METHOD
-const generateId = () => {
-  const maxId = notes.length > 0 ? Math.max(...notes.map((n) => n.id)) : 0;
-  return maxId + 1;
-};
-
 app.post("/api/notes/", (request, response) => {
   const body = request.body;
   if (!body.content) {
@@ -90,17 +85,17 @@ app.post("/api/notes/", (request, response) => {
     });
   }
 
-  const note = {
+  const note = new Note({
     content: body.content,
     important: Boolean(body.important) || false,
-    id: generateId(),
-  };
+  })
 
-  notes = [...notes, note];
-  response.json(note);
+  note.save().then(savedNote => {
+    response.json(savedNote)
+  })
 });
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
