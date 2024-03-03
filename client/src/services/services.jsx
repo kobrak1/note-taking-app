@@ -1,4 +1,4 @@
-const baseUrl = '/api/notes';
+const baseUrl = '/api/notes'; // relative url
 
 const getAll = async () => {
   const request = await fetch(baseUrl);
