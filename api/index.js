@@ -15,11 +15,12 @@ app.get("/", (request, response) => {
 });
 
 // GET ALL
-app.get("/api/notes", (request, response) => {
+app.get('/api/notes', (request, response) => {
   Note.find({}).then((notes) => {
-    response.json(notes);
-  });
-});
+    response.json(notes)
+  })
+})
+
 
 // GET SPECIFIED DATA
 app.get("/api/notes/:id", (request, response, next) => {
