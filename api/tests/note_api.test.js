@@ -30,7 +30,7 @@ beforeEach(async () => {
   console.log('2. data has been saved to db')
 })
 
-test('notes are returned as json', async () => {
+test.only('notes are returned as json', async () => {
   await api
     .get('/api/notes')
     .expect(200)
