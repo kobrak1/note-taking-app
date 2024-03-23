@@ -27,7 +27,7 @@ app.use(express.json()) // middleware to parse JSON bodies
 app.use(middleware.requestLogger) // middleware to log request properties
 
 app.use('/api/notes', notesRouter) // attach '/api/notes' to notesRouter
-app.use('/api/users', usersRouter) // in order to attach '/api/users' to usersRouter
+app.use('/api/users', usersRouter) // attach '/api/users' to usersRouter
 
 app.use(middleware.unknownEndPoint) // handler of requests with unknown endpoint
 app.use(middleware.errorHandler) // handler of requests with unknown id
