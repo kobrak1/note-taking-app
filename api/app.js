@@ -4,6 +4,7 @@ const app = express() // assign express() to the variable called 'app'
 const cors = require('cors')
 const notesRouter = require('./controllers/notes')
 const usersRouter = require('./controllers/users')
+const loginRouter = require('./controllers/login')
 const middleware = require('./utils/middleware')
 const logger = require('./utils/logger')
 const mongoose = require('mongoose')
@@ -28,6 +29,7 @@ app.use(middleware.requestLogger) // middleware to log request properties
 
 app.use('/api/notes', notesRouter) // attach '/api/notes' to notesRouter
 app.use('/api/users', usersRouter) // attach '/api/users' to usersRouter
+app.use('/api/login', loginRouter) // attach '/api/users' to loginRouter
 
 app.use(middleware.unknownEndPoint) // handler of requests with unknown endpoint
 app.use(middleware.errorHandler) // handler of requests with unknown id
