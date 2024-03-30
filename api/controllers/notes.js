@@ -27,7 +27,7 @@ notesRouter.get('/:id', async (request, response, next) => {
 })
 
 // DELETE METHOD
-notesRouter.delete('/:id', async (request, response, next) => {
+notesRouter.delete('/:id', noteExtractor, async (request, response, next) => {
   try {
     const authorId = request.note.user.toString()
     const userId = request.token.id
