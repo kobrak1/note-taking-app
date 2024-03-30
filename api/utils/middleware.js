@@ -38,7 +38,7 @@ const tokenExtractor = (request, response, next) => {
 
   if (authorization && authorization.toLowerCase().startsWith('bearer')) {
     const token = authorization.substring(7)
-    request.token = jwt.verify(token, process.env.SECRET)
+    request.token = jwt.verify(token, process.env.SECRET) // decode the token got from request.body and assign it as 'request.token'
 
     if (!request.token.id) {
       return response.statusU(404).json({ error: 'token missing or invalid' })
