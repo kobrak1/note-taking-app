@@ -29,8 +29,15 @@ notesRouter.get('/:id', async (request, response, next) => {
 // DELETE METHOD
 notesRouter.delete('/:id', async (request, response, next) => {
   try {
-    await Note.findByIdAndDelete(request.params.id)
-    response.status(204).end()
+    const authorId = request.note.user.toString()
+    const userId = request.token.id
+
+    if (authorId === userId) {
+      await Note.findByIdAndDelete(request.params.id)
+      return response.status(204).end()
+    }
+    else response.status(401).send({ error: 'You are not allowed to delete someone else\'s note' })
+
   } catch (exception) {
     next(exception)
   }
