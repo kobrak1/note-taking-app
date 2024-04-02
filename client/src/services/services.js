@@ -1,47 +1,30 @@
-const baseUrls = '/api/notes'; // relative url
+import axios from 'axios'
 const baseUrl = 'http://localhost:3001/api/notes'
 
-const getAll = async () => {
-  const request = await fetch(baseUrl);
-  if (!request.ok) {
-    throw new Error("Error while fetching data");
-  }
-  console.log('data fetched successfully');
-  return request.json();
-};
-
-const post = (notes, noteObject,setNotes) => {
-  fetch(baseUrl, {
-    method: "POST",
-    headers: { "Content-type": "application/json" },
-    body: JSON.stringify(noteObject.content && noteObject),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Error while posting data!");
-      }
-      return response.json();
-    })
-    .then(noteObject.content && setNotes([...notes, noteObject]))
-    .then((data) => console.log("Response data:", data))
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+let token = null
+const setToken = (newToken) => {
+  token = `Bearer ${newToken}`
 }
 
-const update = async (id, newObject) => {
-  const request = await fetch(`${baseUrl}/${id}`, {
-    method: "PUT",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify(newObject),
-  });
+const getAll = () => {
+  const request = axios.get(baseUrl)
+  return request.then(response => response.data)
+}
 
-  if (!request.ok) {
-    throw new Error("Error while updating the data");
+const post = (newObject) => {
+  const config = {
+    headers: { Authorization: token }
   }
-  return request.json();
-};
 
-export default { getAll, update, post };
+  const request = axios.post(baseUrl, newObject, config)
+  return request.then(response => response.data)
+}
+
+const update = (id, newObject) => {
+  const request = axios.put(`${baseUrl}/${id}`, newObject)
+  return request.then(response => response.data)
+}
+
+export default { 
+  getAll, post, update, setToken
+}
