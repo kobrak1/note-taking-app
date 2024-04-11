@@ -1,21 +1,23 @@
-import React, { useEffect, useState, useRef } from "react";
-import Header from "./components/Header/Header";
-import Footer from "./components/Footer/Footer";
-import Notification from "./components/Notification.jsx";
+import React, { useEffect, useRef, useState } from "react";
 import noteService from "./services/services.js";
 import loginService from "./services/login.js";
+import { message } from "antd"
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
 import Note from "./components/Note/Note.jsx";
+import LoginForm from "./components/LoginForm/LoginForm.jsx";
+import Togglable from "./components/Togglable/Togglable.jsx";
+import NoteForm from "./components/NoteForm/NoteForm.jsx";
 
 
 function App() {
   const [notes, setNotes] = useState([]);
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [newNote, setNewNote] = useState('');
   const [showAll, setShowAll] = useState(true)
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
-  const inputRef = useRef(null);
+  const [loginVisible, setLoginVisible] = useState(false);
+  const noteFormRef = useRef();
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser')
@@ -35,18 +37,12 @@ function App() {
   }, [])
 
   // add new note
-  const addNote = (e) => {
-    e.preventDefault();
-    const noteObject = {
-      content: newNote,
-      important: Math.random() > 0.5,
-    }
-
+  const addNote = (noteObject) => {
+    noteFormRef.current.toggleVisibility()
     noteService
       .post(noteObject)
       .then(returnedNote => {
         setNotes(notes.concat(returnedNote))
-        setNewNote('')
       })
   }
 
@@ -61,18 +57,9 @@ function App() {
         setNotes(notes.map(note => note.id !== id ? note : returnedNote))
       })
       .catch(error => {
-        setErrorMessage(
-          `Note '${note.content}' was already removed from server`
-        )
-        setTimeout(() => {
-          setErrorMessage(null)
-        }, 5000)
+        console.error('Error:', error.message)
+        message.error('Error while updating the note')
       })
-  }
-
-  // handle note change
-  const handleNoteChange = (e) => {
-    setNewNote(e.target.value)
   }
 
   // handle user login
@@ -90,10 +77,10 @@ function App() {
       setUser(user);
       setUsername("");
       setPassword("");
-    } catch (exception) {
-      setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000)
+      message.success(`${user.name} logged in successfully`)
+    } catch (error) {
+      console.error('Error while logging in:', error.message)
+      message.error('Incorrect username or password!')
     }
   };
 
@@ -101,6 +88,7 @@ function App() {
   const handleLogout = () => {
     window.localStorage.removeItem('loggedUser')
     setUser(null)
+    message.success('logout successfull')
   }
 
   // handle show important
@@ -108,57 +96,45 @@ function App() {
     ? notes
     : notes.filter(item => item.important)
 
-  // login form component
-  const loginForm = () => (
-    <form onSubmit={handleLogin}>
-      <div>
-        username
-        <input 
-        type="text"
-        value={username}
-        name="Username"
-        onChange={e => setUsername(e.target.value)}/>
-      </div>
-      <div>
-        password
-        <input
-        type="password"
-        value={password}
-        name="Password"
-        onChange={e => setPassword(e.target.value)}/>
-      </div>
-      <button type="submit">login</button>
-    </form>
-  )
+  // login form
+  const loginForm = () => {
+    const hideWhenVisible = { display: loginVisible ? 'none' : '' }
+    const showWhenVisible = { display: loginVisible ? '' : 'none' }
 
-  // note form
-  const noteForm = () => (
-    <form onSubmit={addNote}>
-      <input 
-        value={newNote} 
-        onChange={handleNoteChange}
-        inputref={inputRef} // to focus on the input field when the component rendered
-      />
-      <button type="submit">save</button>
-    </form>
-  )
-
-  // if data is not fetched show nothing
-  if (!notes) {
-    return null;
+    return (
+      <div>
+        <div style={hideWhenVisible}>
+          <button onClick={() => setLoginVisible(true)}>login</button>
+        </div>
+        <div style={showWhenVisible}>
+          <LoginForm 
+            handleLogin={handleLogin} 
+            username={username} 
+            password={password} 
+            handleUsernameChange={e => setUsername(e.target.value)}
+            handlePasswordChange={e => setPassword(e.target.value)}
+          />
+        </div>
+        <div style={showWhenVisible}>
+          <button onClick={() => setLoginVisible(false)}>cancel</button>
+        </div>
+      </div>
+    )
   }
 
   return (
     <>
       <Header />
-      <Notification message={errorMessage} />
-      {user === null ?
-        loginForm() :
+      {!user && loginForm()}
+      {user && 
         <div>
           <p>{user.name} logged in</p>
           <button onClick={() => handleLogout()}>logout</button>
-          {noteForm()}
-        </div>}
+          <Togglable buttonLabel='new note' ref={noteFormRef} >
+            <NoteForm createNote={addNote} />
+          </Togglable>
+        </div>
+      }
       <div>
         <button onClick={() => setShowAll(!showAll)}>
           show {showAll ? 'important' : 'all'}
