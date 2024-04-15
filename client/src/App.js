@@ -1,23 +1,23 @@
-import React, { useEffect, useRef, useState } from "react";
-import noteService from "./services/services.js";
-import loginService from "./services/login.js";
-import { message } from "antd"
-import Header from "./components/Header/Header";
-import Footer from "./components/Footer/Footer";
-import Note from "./components/Note/Note.jsx";
-import LoginForm from "./components/LoginForm/LoginForm.jsx";
-import Togglable from "./components/Togglable/Togglable.jsx";
-import NoteForm from "./components/NoteForm/NoteForm.jsx";
+import React, { useEffect, useRef, useState } from 'react'
+import noteService from './services/services.js'
+import loginService from './services/login.js'
+import { message } from 'antd'
+import Header from './components/Header/Header'
+import Footer from './components/Footer/Footer'
+import Note from './components/Note/Note.jsx'
+import LoginForm from './components/LoginForm/LoginForm.jsx'
+import Togglable from './components/Togglable/Togglable.jsx'
+import NoteForm from './components/NoteForm/NoteForm.jsx'
 
 
 function App() {
-  const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState([])
   const [showAll, setShowAll] = useState(true)
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [user, setUser] = useState(null);
-  const [loginVisible, setLoginVisible] = useState(false);
-  const noteFormRef = useRef();
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [user, setUser] = useState(null)
+  const [loginVisible, setLoginVisible] = useState(false)
+  const noteFormRef = useRef()
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser')
@@ -50,10 +50,10 @@ function App() {
   const toggleImportanceOf = id => {
     const note = notes.find(n => n.id === id)
     const changedNote = { ...note, important: !note.important }
-  
+
     noteService
       .update(id, changedNote)
-        .then(returnedNote => {
+      .then(returnedNote => {
         setNotes(notes.map(note => note.id !== id ? note : returnedNote))
       })
       .catch(error => {
@@ -64,25 +64,25 @@ function App() {
 
   // handle user login
   const handleLogin = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     try {
       const user = await loginService.login({
         username,
         password,
-      });
+      })
 
       window.localStorage.setItem('loggedUser', JSON.stringify(user))
       noteService.setToken(user.token)
-      setUser(user);
-      setUsername("");
-      setPassword("");
+      setUser(user)
+      setUsername('')
+      setPassword('')
       message.success(`${user.name} logged in successfully`)
     } catch (error) {
       console.error('Error while logging in:', error.message)
       message.error('Incorrect username or password!')
     }
-  };
+  }
 
   // handle user logout
   const handleLogout = () => {
@@ -92,7 +92,7 @@ function App() {
   }
 
   // handle show important
-  const notesToShow = showAll 
+  const notesToShow = showAll
     ? notes
     : notes.filter(item => item.important)
 
@@ -107,10 +107,10 @@ function App() {
           <button onClick={() => setLoginVisible(true)}>login</button>
         </div>
         <div style={showWhenVisible}>
-          <LoginForm 
-            handleLogin={handleLogin} 
-            username={username} 
-            password={password} 
+          <LoginForm
+            handleLogin={handleLogin}
+            username={username}
+            password={password}
             handleUsernameChange={e => setUsername(e.target.value)}
             handlePasswordChange={e => setPassword(e.target.value)}
           />
@@ -126,7 +126,7 @@ function App() {
     <>
       <Header />
       {!user && loginForm()}
-      {user && 
+      {user &&
         <div>
           <p>{user.name} logged in</p>
           <button onClick={() => handleLogout()}>logout</button>
@@ -141,7 +141,7 @@ function App() {
         </button>
       </div>
       <ul>
-        {notesToShow.map(note => 
+        {notesToShow.map(note =>
           <Note
             key={note.id}
             note={note}
@@ -151,7 +151,7 @@ function App() {
       </ul>
       <Footer />
     </>
-  );
+  )
 }
 
-export default App;
+export default App

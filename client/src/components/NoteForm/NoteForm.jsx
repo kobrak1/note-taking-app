@@ -1,8 +1,7 @@
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 
 const NoteForm = ({ createNote }) => {
   const [newNote, setNewNote] = useState('');
-  const inputRef = useRef(null);
 
     // add new note
     const addNote = (e) => {
@@ -22,7 +21,6 @@ const NoteForm = ({ createNote }) => {
           <input
             value={newNote}
             onChange={e => setNewNote(e.target.value)}
-            ref={inputRef}
           />
           <button type="submit">save</button>
         </form>
