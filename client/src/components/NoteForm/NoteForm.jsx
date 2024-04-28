@@ -17,7 +17,7 @@ const NoteForm = ({ createNote }) => {
     <div>
       <h2>Create a new note</h2>
 
-      <form onSubmit={addNote}>
+      <form onSubmit={addNote} className='formDiv'>
         <input
           value={newNote}
           onChange={e => setNewNote(e.target.value)}
