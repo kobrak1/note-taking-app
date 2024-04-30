@@ -32,6 +32,12 @@ app.use('/api/notes', notesRouter) // attach '/api/notes' to notesRouter
 app.use('/api/users', usersRouter) // attach '/api/users' to usersRouter
 app.use('/api/login', loginRouter) // attach '/api/users' to loginRouter
 
+// apply testing route if the NODE_ENV=test
+if (process.env.NODE_ENV === 'test') {
+  const testingRouter = require('./controllers/testing')
+  app.use('/api/testing', testingRouter)
+}
+
 app.use(middleware.unknownEndPoint) // handler of requests with unknown endpoint
 app.use(middleware.errorHandler) // handler of requests with unknown id
 
