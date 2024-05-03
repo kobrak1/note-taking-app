@@ -1,4 +1,5 @@
 const { test, expect, describe, beforeEach } = require("@playwright/test")
+const { loginWith, createNote } = require('./helper')
 
 describe("Note Taking App", () => {
 
@@ -26,28 +27,19 @@ describe("Note Taking App", () => {
   describe('when logged in', () => {
 
     beforeEach(async ({ page }) => {
-        await page.getByRole('button', { name: 'login' }).click()
-        await page.getByTestId('username').fill('admin')
-        await page.getByTestId('password').fill('admin')
-    
-        await page.getByRole('button', { name: 'login' }).click()
-    
+        loginWith(page, 'admin', 'admin')
         await expect(page.getByText('root123 logged in', { exact: true })).toBeVisible()
     })
 
     test('a new note can be created', async ({ page }) => {
-      await page.getByRole("button", { name: 'new note' }).click()
-      await page.getByRole("textbox").fill('this note is created by playwright')
-      await page.getByRole("button", { name: 'save' }).click()
-  
+      await page.pause()
+      createNote(page, 'this note is created by playwright', true)  
       await expect(page.getByText('this note is created by playwright')).toBeVisible()
     })
 
     describe('and a note exists', () => {
       beforeEach(async ({ page }) => {
-        await page.getByRole('button', { name: 'new note' }).click()
-        await page.getByRole('textbox').fill('another note by playright')
-        await page.getByRole('button', { name: 'save' }).click()
+        createNote(page, 'another note by playright', true)
       })
 
       test('importance can be changed', async ({ page }) => {
