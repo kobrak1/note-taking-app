@@ -4,7 +4,7 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
-    "vitest-globals/env": true,
+    "jest/globals": true,
   },
   extends: [
     'eslint:recommended',
