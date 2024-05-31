@@ -5,14 +5,23 @@ const Note = ({ note, handleClick }) => {
   return (
     <li onClick={handleClick}>
       {note.content}
-      <strong> {note.important ? 'important' : ''} </strong>
+      <strong> {note.important ? 'important' : 'not important'} </strong>
     </li>
   )
 }
 
 const Notes = () => {
-  const notes = useSelector(state => state)
   const dispatch = useDispatch()
+  const notes = useSelector(state => {
+    if(state.filterNote === 'ALL') {
+      return state.notes
+    }
+    return state.filterNote === 'IMPORTANT'
+      ? state.notes.filter(note => note.important)
+      : state.notes.filter(note => !note.important)
+  })
+
+  console.log('notes:', notes)
 
   return (
     <ul>
