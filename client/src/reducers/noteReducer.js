@@ -11,6 +11,7 @@ const noteSlice = createSlice({
   name: 'notes',
   initialState,
   reducers: {
+    // add new notes
     createNote(state, action) {
       const content = action.payload
       state.push({
@@ -19,6 +20,7 @@ const noteSlice = createSlice({
         id: uuid4()
       })
     },
+    // toggle between 'important' and 'not imporant' buttons
     toggleImportanceOf(state, action) {
       return state.map(note =>
         note.id !== action.payload
