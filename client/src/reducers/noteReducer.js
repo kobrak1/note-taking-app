@@ -1,42 +1,33 @@
 import uuid4 from 'uuid4'
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = [
     { content: 'reducer defines how redux store works', important: true, id: 1},
     { content: 'state of store can contain any data', important: false, id: 2}
   ]
 
-// action creators
-export const createNote = (content) => {
-  return {
-    type: 'NEW_NOTE',
-    payload: {
-      content: content,
-      important: false,
-      id: uuid4()
-    }
-  }
-}
-
-export const toggleImportanceOf = (id) => {
-  return {
-    type: 'TOGGLE_IMPORTANCE',
-    payload: { id }
-  }
-}
-
-const noteReducer = (state = initialState , action) => {
-  switch(action.type) {
-    case 'NEW_NOTE':
-      return [...state, action.payload ]
-    case 'TOGGLE_IMPORTANCE':
+// slice reducers
+const noteSlice = createSlice({
+  name: 'notes',
+  initialState,
+  reducers: {
+    createNote(state, action) {
+      const content = action.payload
+      state.push({
+        content,
+        important: false,
+        id: uuid4()
+      })
+    },
+    toggleImportanceOf(state, action) {
       return state.map(note =>
-        note.id !== action.payload.id
+        note.id !== action.payload
           ? note
           : {...note, important: !note.important}
       )
-    default:
-      return state
+    },
   }
-}
+})
 
-export default noteReducer
+export const { createNote, toggleImportanceOf } = noteSlice.actions
+export default noteSlice.reducer
