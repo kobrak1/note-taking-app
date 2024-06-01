@@ -1,21 +1,18 @@
 import ReactDOM from 'react-dom/client'
-import { createStore, combineReducers } from 'redux'
+import { configureStore } from '@reduxjs/toolkit'
 import { Provider } from 'react-redux'
+
 import App from './App'
+import noteReducer from './reducers/noteReducer'
+import filterReducer from './reducers/filterReducer'
 
-import noteReducer, { createNote } from './reducers/noteReducer'
-import filterReducer, { filterChange } from './reducers/filterReducer'
-
-const reducer = combineReducers({
-    notes: noteReducer,
-    filterNote: filterReducer
+// main store that combines reducers with configureStore function
+const store = configureStore({
+    reducer: {
+        notes: noteReducer,
+        filterNote:filterReducer
+    }
 })
-
-const store = createStore(reducer)
-
-store.subscribe(() => console.log(store.getState()))
-store.dispatch(filterChange('IMPORTANT'))
-store.dispatch(createNote('Ananın amı amına koyduğumun çocuğu'))
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
