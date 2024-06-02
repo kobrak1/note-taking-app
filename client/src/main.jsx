@@ -10,7 +10,7 @@ import filterReducer from './reducers/filterReducer'
 const store = configureStore({
     reducer: {
         notes: noteReducer,
-        filterNote:filterReducer
+        filterNote:filterReducer,
     }
 })
 
