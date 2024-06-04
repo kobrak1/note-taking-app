@@ -15,12 +15,12 @@ const NewNote = () => {
     }
     
     // handle submit method
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault()
         const content = event.target.note.value
         event.target.note.value = ''
-        dispatch(createNote(asObject(content)))
-    } 
+        dispatch(createNote(content))
+      } 
 
     return (
         <form onSubmit={handleSubmit}>
