@@ -1,25 +1,26 @@
-import { useEffect } from "react"
-import NewNote from "./components/NewNote/NewNote"
-import Notes from "./components/Notes/Notes"
-import VisibilityFilter from "./components/VisibilityFilter/VisibilityFilter"
-import noteService from "./services/noteService"
-import { initializeNotes, setNotes } from "./reducers/noteReducer"
-import { useDispatch } from "react-redux"
+import React, { useEffect, useState } from 'react'
+import { fetchNotes } from './services/noteServices'
 
 const App = () => {
-    const dispatch = useDispatch()
-    // get all the data whenever the App component is rendered
-    useEffect(() => {
-        dispatch(initializeNotes())
-    }, [])
+ const [notes, setNotes] = useState([])
+ 
+ useEffect(() => {
+  fetchNotes()
+    .then(notes => {
+      setNotes(notes.data)
+      console.log('Data fetched successfully')
+    })
+    .catch(err => console.error('Error fetching notes:', err))
+ }, [])
 
-    return (
-        <div>
-            <NewNote />
-            <VisibilityFilter />
-            <Notes />
-        </div>
-    )
+  return (
+    <div>
+      <h1>Notes</h1>
+      {notes.map((item, index) => (
+        <li key={index}> {item.content} </li>
+      ))}
+    </div>
+  )
 }
 
 export default App

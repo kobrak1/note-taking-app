@@ -26,7 +26,7 @@ app.use(cors()) // middleware to assure same origin policy
 app.use(express.static('build')) // middleware to view static files on backend
 app.use(express.json()) // middleware to parse JSON bodies
 app.use(middleware.requestLogger) // middleware to log request properties
-app.use(middleware.tokenExtractor) // middleware to set the token to 'request.token'
+//app.use(middleware.tokenExtractor) // middleware to set the token to 'request.token'
 
 app.use('/api/notes', notesRouter) // attach '/api/notes' to notesRouter
 app.use('/api/users', usersRouter) // attach '/api/users' to usersRouter
