@@ -58,6 +58,7 @@ api.interceptors.response.use(
 )
 
 export const fetchNotes = () => api.get('/')  // Fetch all notes
+export const fetchNoteById = (id) => api.get(`/${id}`)  // Fetch a specific note
 export const addNote = (content) => api.post('/', {...content, important: false})  // Create a new note
 export const updateNote = (id, updates) => api.put(`/${id}`, updates)  // Update a specific note
 export const deleteNote = (id) => api.delete(`/${id}`)  // Delete a specific note
