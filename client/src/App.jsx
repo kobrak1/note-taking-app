@@ -1,24 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import { fetchNotes } from './services/noteServices'
+import React from 'react'
+import { Route, Routes } from 'react-router-dom'
+
+import PrivateRoutes from './utils/PrivateRoutes'
+import Login from './components/Login'
+import HomePage from './pages/HomePage'
 
 const App = () => {
- const [notes, setNotes] = useState([])
- 
- useEffect(() => {
-  fetchNotes()
-    .then(notes => {
-      setNotes(notes.data)
-      console.log('Data fetched successfully')
-    })
-    .catch(err => console.error('Error fetching notes:', err))
- }, [])
-
   return (
     <div>
-      <h1>Notes</h1>
-      {notes.map((item, index) => (
-        <li key={index}> {item.content} </li>
-      ))}
+      <Routes>
+        <Route path='/login' element={<Login />} />
+        <Route element={<PrivateRoutes />}>
+          <Route path='/' element={<HomePage />} />
+        </Route>
+      </Routes>
     </div>
   )
 }

@@ -28,13 +28,15 @@ api.interceptors.request.use(
 
 // Response interceptor for global error handling
 api.interceptors.response.use(
-  res => res,
+  res => res.data,
   err => {
     if (err.response) {
       // handle different error status codes
       switch (err.response.status) {
         case 401:
           console.error('Unauthorized. Redirecting to login.')
+          if (localStorage.getItem('auth')) {localStorage.removeItem('auth')}  // Remove the auth data
+          window.location.href = '/login'  // Redirect to login page
           break
         case 403:
           console.error('Forbidden. You do not have permission to perform this action.')
@@ -57,8 +59,8 @@ api.interceptors.response.use(
   }
 )
 
-export const fetchNotes = () => api.get('/')  // Fetch all notes
-export const fetchNoteById = (id) => api.get(`/${id}`)  // Fetch a specific note
-export const addNote = (content) => api.post('/', {...content, important: false})  // Create a new note
-export const updateNote = (id, updates) => api.put(`/${id}`, updates)  // Update a specific note
-export const deleteNote = (id) => api.delete(`/${id}`)  // Delete a specific note
+export const fetchNotes = () => api.get('/')
+export const fetchNoteById = (id) => api.get(`/${id}`)
+export const addNote = (content) => api.post('/', content)
+export const updateNote = (id, updatedNote) => api.put(`/${id}`, updatedNote)
+export const deleteNote = (id) => api.delete(`/${id}`)

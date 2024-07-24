@@ -3,9 +3,10 @@ const Note = require('../models/note')
 const { userExtractor, noteExtractor } = require('../utils/middleware')
 
 // GET ALL
-notesRouter.get('/', async (request, response, next) => {
+notesRouter.get('/', userExtractor, async (request, response, next) => {
   try {
-    const notes = await Note.find({}).populate('user', { username: 1, name: 1 })
+    const userId = request.user.id
+    const notes = await Note.find({ user: userId }).populate('user', { username: 1, name: 1 })
     response.status(200).json(notes)
   } catch (exception) {
     next(exception)

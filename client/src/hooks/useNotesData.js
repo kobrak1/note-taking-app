@@ -20,7 +20,7 @@ export const useNotes = () => {
 export const useNote = (id) => {
     return useQuery({
         queryKey: ['note', id],
-        queryFn: fetchNoteById,
+        queryFn: () => fetchNoteById(id),
         staleTime: 1000 * 60 * 5,  // data remains fresh for 5 minutes
         cacheTime: 1000 * 60 * 10, // cache data for 10 minutes
         onError: (error) => {
@@ -38,6 +38,7 @@ export const useCreateNote = () => {
         mutationFn: data => addNote(data),
         onSuccess: () => {
             queryClient.invalidateQueries(['notes'])
+            message.success('Created successfully')
         },
         onError: (error) => {
             console.error('Error creating note:', error)
@@ -51,9 +52,10 @@ export const useUpdateNote = () => {
     const queryClient = useQueryClient()
 
     return useMutation({
-        mutationFn: updatedData => updateNote(updatedData),
+        mutationFn: ({ id, important }) => updateNote(id, {important}),
         onSuccess: () => {
             queryClient.invalidateQueries(['notes'])
+            message.success('Updated successfully')
         },
         onError: (error) => {
             console.error('Error updating note:', error)
@@ -70,6 +72,7 @@ export const useDeleteNote = () =>{
         mutationFn: id => deleteNote(id),
         onSuccess: () => {
             queryClient.invalidateQueries(['notes'])
+            message.success('Removed successfully')
         },
         onError: (error) => {
             console.error('Error deleting note:', error)

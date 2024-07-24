@@ -7,7 +7,7 @@ const api = axios.create({
 })
 
 // Response interceptor that stores the response from login or register controllers
-api.interceptors.response.api(
+api.interceptors.response.use(
     res => {
         const auth = res.data
         localStorage.setItem('auth', JSON.stringify(auth))
