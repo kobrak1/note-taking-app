@@ -1,28 +1,10 @@
-import { useDeleteNote, useNotes, useUpdateNote } from "../../hooks/useNotesData"
-import { CircularProgress } from '@mui/material'
+import { useDeleteNote, useUpdateNote } from "../../hooks/useNotesData"
+import withLoading from "../../hoc/withLoading"
 import NoteItem from "./NoteItem"
-import ErrorMessage from './ErrorMessage'
 
-const Notes = () => {
-  const { data = [], isLoading, isError } = useNotes()
+const Notes = ({ data, isLoading, isError }) => {
   const updateItem = useUpdateNote()
   const deleteItem = useDeleteNote()
-
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <CircularProgress />
-      </div>
-    )
-  }
-
-  if (isError) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <ErrorMessage />
-      </div>
-    )
-  }
 
   const handleToggleImportant = (id, important) => {
     updateItem.mutate({ id, important })
@@ -33,7 +15,7 @@ const Notes = () => {
   }
 
   return (
-    <div className="flex flex-col items-center mx-auto">
+    <div>
       {data.map((item) => (
         <NoteItem
           key={item.id}
@@ -46,4 +28,5 @@ const Notes = () => {
   )
 }
 
-export default Notes
+const NotesWithLoading = withLoading(Notes) // Wrap Notes component with withLoading HOC
+export default NotesWithLoading

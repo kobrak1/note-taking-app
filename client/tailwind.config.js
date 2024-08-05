@@ -11,7 +11,10 @@ export default {
       },
       maxWidth: {
         'maxW': '40rem'
-      }
+      },
+      width: {
+        'noteItemWidth': '40rem'
+      },
     },
   },
   plugins: [],

@@ -2,6 +2,7 @@
 const Note = require('../models/note')
 const { userExtractor, noteExtractor } = require('../utils/middleware')
 
+
 // GET ALL
 notesRouter.get('/', userExtractor, async (request, response, next) => {
   try {

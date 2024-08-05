@@ -2,7 +2,7 @@ import { DeleteOutlineSharp, GradeOutlined, Grade } from "@mui/icons-material"
 
 const NoteItem = ({ note, onToggleImportant, onDelete }) => {
   return (
-    <div className="flex justify-between min-h-minH w-1/2 p-2 m-2 border border-slate-400 bg-slate-200">
+    <div className="flex justify-between min-h-minH w-noteItemWidth p-2 m-2 border border-slate-400 bg-slate-200">
       <div className="w-2/3 flex flex-col justify-between">
         <div className="text-slate-600">{note.content}</div>
         <div className="flex-grow" /> {/* Spacer to push the date to the bottom */}

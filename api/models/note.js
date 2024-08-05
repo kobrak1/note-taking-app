@@ -6,6 +6,7 @@ const noteSchema = new mongoose.Schema({
     minLength: 5,
     required: true
   },
+  file: String,
   important: { type: Boolean, default: false },
   user: {
     type: mongoose.Schema.Types.ObjectId,

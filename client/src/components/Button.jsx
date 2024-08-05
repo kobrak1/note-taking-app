@@ -13,7 +13,7 @@ const Button = ({ handleClick, children, className='', type = 'button' }) => {
 }
 
 Button.propTypes = {
-    handleClick: PropTypes.func.isRequired,
+    handleClick: PropTypes.func,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     type: PropTypes.oneOf(['button', 'submit', 'reset']),

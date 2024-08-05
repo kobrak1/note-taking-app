@@ -1,5 +1,5 @@
 import React from "react"
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 import Logo from "./Logo"
 import Button from "../Button"
@@ -19,18 +19,26 @@ const Header = () => {
     const extractUsername = () => {
         const auth = localStorage.getItem('auth')
         if (auth) {
-            const username = JSON.parse(auth).username
-            return username
+            try {
+                const username = JSON.parse(auth).username
+                return username
+            } catch (error) {
+                console.error("Failed to parse auth data:", error)
+            }
         }
         return 'Guest'
-    }
+    }    
 
     return (
         <div className="flex justify-around items-center m-4">
             <Logo />
             <div className="flex">
-                <HeaderItem>Notes</HeaderItem>
-                <HeaderItem>Create</HeaderItem>
+                <Link to={'/'}>
+                    <HeaderItem>Notes</HeaderItem>
+                </Link>
+                <Link to={'/create-new'}>
+                    <HeaderItem>Create</HeaderItem>
+                </Link>
             </div>
             <div className="flex">
                 <HeaderItem> {extractUsername()} </HeaderItem>
