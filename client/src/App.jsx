@@ -2,7 +2,7 @@ import React, { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 // lazy loaded components
-import PrivateRoutes from './utils/PrivateRoutes'
+//import PrivateRoutes from './utils/PrivateRoutes'
 import Login from './components/Login'
 import HomePage from './pages/HomePage'
 import NoteFormPage from './pages/NoteFormPage'
