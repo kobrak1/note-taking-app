@@ -1,16 +1,11 @@
-import React from "react"
-import Header from "../components/Header/Header"
-import NotesContainer from "../components/Notes/NotesContainer"
+import React from 'react'
 
 const HomePage = () => {
-    return (
-        <>
-            <Header />
-            <div className="flex flex-col items-center mx-auto">
-                <NotesContainer />
-            </div>
-        </>
-    )
+  return (
+    <div>
+      This is the home page
+    </div>
+  )
 }
 
 export default HomePage
