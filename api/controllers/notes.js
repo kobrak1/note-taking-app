@@ -2,6 +2,12 @@
 const Note = require('../models/note')
 const { userExtractor, noteExtractor } = require('../utils/middleware')
 
+// Get all without auth
+notesRouter.get('/fetch-notes', async (req, res) => {
+  const notes = await Note.find({})
+  res.status(200).json(notes)
+})
+
 
 // GET ALL
 notesRouter.get('/', userExtractor, async (request, response, next) => {
