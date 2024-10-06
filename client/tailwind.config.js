@@ -6,14 +6,10 @@ export default {
   ],
   theme: {
     extend: {
-      minHeight: {
-        'minH': '6rem'
-      },
-      maxWidth: {
-        'maxW': '40rem'
-      },
-      width: {
-        'noteItemWidth': '40rem'
+      colors: {
+        primary: '#f8fafc',    // slate-50
+        secondary: '#cbd5e1',  // slate-300
+        tertiary: '#64748b',   // slate-500
       },
     },
   },
