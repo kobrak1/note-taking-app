@@ -3,15 +3,11 @@ const express = require('express')
 const app = express() // assign express() to the variable called 'app'
 const cors = require('cors')
 const mongoose = require('mongoose')
-const logger = require('./utils/logger')
 const middleware = require('./utils/middleware')
 
 const usersRouter = require('./controllers/users')
 const notesRouter = require('./controllers/notes')
 const loginRouter = require('./controllers/login')
-
-
-logger.info('connecting to', config.MONGODB_URI)
 
 // connect to mongoDB
 mongoose.set('strictQuery', false)
