@@ -1,8 +1,14 @@
 import React, { lazy, Suspense } from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { Provider } from "react-redux"
+import { store } from "./store.js"
+
+// Components
 import Layout from "./pages/Layout.jsx"
 import FallBackUI from "./components/FallBackUI.jsx"
 import ErrorBoundary from './components/ErrorBoundary.jsx'
+import LoginPage from "./pages/LoginPage.jsx"
+import RegisterPage from "./pages/RegisterPage"
 
 // lazy loaded components
 const HomePage = lazy(() => import(/* webpackChunkName: "HomePage" */ "./pages/HomePage.jsx"))
@@ -26,17 +32,27 @@ const App = () => {
         {
           path: "/:id",
           element: <SinglePage />
+        },
+        {
+          path: "/login",
+          element: <LoginPage />
+        },
+        {
+          path: "/register",
+          element: <RegisterPage />
         }
       ]
     }
   ])
 
   return (
-    <ErrorBoundary>
-      <Suspense fallback={ <FallBackUI /> }>
-        <RouterProvider router={router} />
-      </Suspense>
-    </ErrorBoundary>
+    <Provider store={store}>
+      <ErrorBoundary>
+        <Suspense fallback={ <FallBackUI /> }>
+          <RouterProvider router={router} />
+        </Suspense>
+      </ErrorBoundary>
+    </Provider>
   )
 }
 
