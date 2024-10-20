@@ -1,0 +1,120 @@
+fullstack-microservices-app/
+│
+├── api-gateway/
+│   ├── src/
+│   │   ├── controllers/
+│   │   ├── routes/
+│   │   ├── middlewares/
+│   │   └── index.js
+│   ├── config/
+│   ├── tests/
+│   ├── Dockerfile
+│   ├── package.json
+│   └── .env
+│
+├── services/
+│   ├── auth-service/
+│   │   ├── src/
+│   │   │   ├── controllers/
+│   │   │   ├── models/
+│   │   │   ├── routes/
+│   │   │   ├── middlewares/
+│   │   │   ├── utils/
+│   │   │   └── index.js
+│   │   ├── config/
+│   │   ├── tests/
+│   │   ├── Dockerfile
+│   │   ├── package.json
+│   │   └── .env
+│   │
+│   ├── user-service/
+│   │   ├── src/
+│   │   │   ├── controllers/
+│   │   │   ├── models/
+│   │   │   ├── routes/
+│   │   │   ├── middlewares/
+│   │   │   ├── utils/
+│   │   │   └── index.js
+│   │   ├── config/
+│   │   ├── tests/
+│   │   ├── Dockerfile
+│   │   ├── package.json
+│   │   └── .env
+│   │
+│   ├── product-service/
+│   │   ├── src/
+│   │   │   ├── controllers/
+│   │   │   ├── models/
+│   │   │   ├── routes/
+│   │   │   ├── middlewares/
+│   │   │   ├── utils/
+│   │   │   └── index.js
+│   │   ├── config/
+│   │   ├── tests/
+│   │   ├── Dockerfile
+│   │   ├── package.json
+│   │   └── .env
+│   │
+│   ├── order-service/
+│   │   ├── src/
+│   │   │   ├── controllers/
+│   │   │   ├── models/
+│   │   │   ├── routes/
+│   │   │   ├── middlewares/
+│   │   │   ├── utils/
+│   │   │   └── index.js
+│   │   ├── config/
+│   │   ├── tests/
+│   │   ├── Dockerfile
+│   │   ├── package.json
+│   │   └── .env
+│   │
+│   └── ... (additional services)
+│
+├── client/
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── services/
+│   │   ├── hooks/
+│   │   ├── utils/
+│   │   ├── styles/
+│   │   └── index.js
+│   ├── tests/
+│   ├── Dockerfile
+│   ├── package.json
+│   └── .env
+│
+├── infrastructure/
+│   ├── docker-compose.yml
+│   ├── k8s/
+│   │   ├── api-gateway-deployment.yaml
+│   │   ├── auth-service-deployment.yaml
+│   │   ├── user-service-deployment.yaml
+│   │   ├── product-service-deployment.yaml
+│   │   ├── order-service-deployment.yaml
+│   │   ├── ... (additional k8s manifests)
+│   │   ├── ingress.yaml
+│   │   └── configmaps/
+│   ├── terraform/
+│   │   ├── main.tf
+│   │   ├── variables.tf
+│   │   ├── outputs.tf
+│   │   ├── ... (additional Terraform scripts)
+│   │   └── environments/
+│   │       ├── dev.tfvars
+│   │       ├── prod.tfvars
+│   │       └── staging.tfvars
+│   └── monitoring/
+│       ├── prometheus/
+│       ├── grafana/
+│       ├── logging/
+│       └── alerts/
+│
+├── scripts/
+│   ├── setup.sh
+│   ├── deploy.sh
+│   ├── ... (additional scripts)
+│
+└── README.md

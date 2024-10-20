@@ -1,25 +1,43 @@
-import { useEffect } from "react"
-import NewNote from "./components/NewNote/NewNote"
-import Notes from "./components/Notes/Notes"
-import VisibilityFilter from "./components/VisibilityFilter/VisibilityFilter"
-import noteService from "./services/noteService"
-import { initializeNotes, setNotes } from "./reducers/noteReducer"
-import { useDispatch } from "react-redux"
+import React, { lazy, Suspense } from 'react'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import Layout from "./pages/Layout.jsx"
+import FallBackUI from "./components/FallBackUI.jsx"
+import ErrorBoundary from './components/ErrorBoundary.jsx'
+
+// lazy loaded components
+const HomePage = lazy(() => import(/* webpackChunkName: "HomePage" */ "./pages/HomePage.jsx"))
+const ListPage = lazy(() => import(/* webpackChunkName: "ListPage" */ "./pages/ListPage.jsx"))
+const SinglePage = lazy(() => import(/* webpackChunkName: "SinglePage" */ "./pages/SinglePage.jsx"))
 
 const App = () => {
-    const dispatch = useDispatch()
-    // get all the data whenever the App component is rendered
-    useEffect(() => {
-        dispatch(initializeNotes())
-    }, [])
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Layout />,
+      children: [
+        {
+          path:"/",
+          element: <HomePage />
+        },
+        {
+          path: "/notes",
+          element: <ListPage />
+        },
+        {
+          path: "/:id",
+          element: <SinglePage />
+        }
+      ]
+    }
+  ])
 
-    return (
-        <div>
-            <NewNote />
-            <VisibilityFilter />
-            <Notes />
-        </div>
-    )
+  return (
+    <ErrorBoundary>
+      <Suspense fallback={ <FallBackUI /> }>
+        <RouterProvider router={router} />
+      </Suspense>
+    </ErrorBoundary>
+  )
 }
 
 export default App
