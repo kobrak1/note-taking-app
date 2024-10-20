@@ -1,4 +1,4 @@
-﻿const mongoose = require('mongoose')
+﻿﻿const mongoose = require('mongoose')
 
 const noteSchema = new mongoose.Schema({
   content: {
@@ -6,14 +6,11 @@ const noteSchema = new mongoose.Schema({
     minLength: 5,
     required: true
   },
-  file: String,
-  important: { type: Boolean, default: false },
+  important: Boolean,
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
-  },
-  updated_at: { type: Date, default: Date.now },
-  created_at: { type: Date, default: Date.now },
+  }
 })
 
 noteSchema.set('toJSON', {

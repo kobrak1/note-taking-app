@@ -8,7 +8,6 @@ notesRouter.get('/fetch-notes', async (req, res) => {
   res.status(200).json(notes)
 })
 
-
 // GET ALL
 notesRouter.get('/', userExtractor, async (request, response, next) => {
   try {
