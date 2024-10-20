@@ -3,13 +3,21 @@ import Navbar from "../components/Navbar"
 
 const Layout = () => {
     return (
-        <div className="layout">
-            <div className="navbar">
+        <div className="flex flex-col">
+            <div>
                 <Navbar />
             </div>
-            <div className="children">
+            <div className="relative top-40 w-full">
                 <Outlet />
             </div>
+        </div>
+    )
+}
+
+const RequireAuth = () => {
+    return (
+        <div>
+            
         </div>
     )
 }
